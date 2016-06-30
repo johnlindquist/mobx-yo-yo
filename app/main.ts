@@ -1,43 +1,75 @@
 import yo from 'yo-yo';
-import {observable, autorun} from "mobx";
+import {observable, autorun, action} from "mobx";
 
-const appState = observable({
-    people: [{
-        name: "John",
-        age: 35,
-        done: false
-    }]
-});
+class AppState {
+    static ALL = todo => todo;
+    static ACTIVE = todo => !todo.completed;
+    static COMPLETED = todo => todo.completed;
 
+    @observable currentFilter = AppState.ALL;
 
-const createPerson = ()=> ({
-    name: "Rando",
-    age: 20,
-    done: false
-})
+    nextId = 0;
+    @observable currentTodo;
 
-const inputComp = state =>
-    yo`<input value="${state.name}" oninput=${ev => state.name = ev.target.value}>`
+    @action resetCurrent = ()=> this.currentTodo = {
+        id: this.nextId++,
+        text: '',
+        completed: false
+    }
 
-const buttonComp = state =>
-    yo`<button onclick=${ev => state.age++}>Age up!</button>`;
+    @observable todos = [];
 
-const personComp = person => yo`<div>
-  ${inputComp(person)}
-  ${buttonComp(person)}
-  <div
-    style="text-decoration: ${person.done ? 'line-through':'none'}"
-    onclick=${ev => person.done = !person.done}    
-    >${person.name} is ${person.age}</div>
+    @action addTodo= todo => {
+        this.todos.push(todo);
+        this.resetCurrent();
+    }
+
+    constructor() {
+        this.resetCurrent();
+    }
+}
+
+const appState = new AppState();
+
+const addTodoComp = (todo, addTodo) => yo`<form onsubmit=${
+    ev => {
+        ev.preventDefault();
+        addTodo(todo);
+    }}>
+        <input type="text" value="${todo.text}" oninput=${ev => todo.text = ev.target.value} placeholder="">
+        <button type="submit">Add Todo</button>
+    </form>`
+
+const todoComp = todo => yo`<div 
+    onclick=${ev => todo.completed = !todo.completed}
+    style="text-decoration: ${ todo.completed ? 'line-through': 'none'}"
+    >
+    ${todo.text}
 </div>`
 
-const peopleList = state =>
-    state.people.map(person => personComp(person))
+const todoListComp = state => yo`<div>
+    ${state.todos
+    .filter(appState.currentFilter)
+    .map(todoComp)}
+</div>`
+
+const filterComp = (state, filter, label) => yo`<span 
+        onclick=${ev => state.currentFilter = filter} 
+        style="text-decoration: ${state.currentFilter === filter ? 'underline': 'none'}">
+        ${label}
+    </span>`
+
+const filterListComp = state => yo`<div>
+    ${filterComp(state, AppState.ALL, "ALL")}
+    ${filterComp(state, AppState.ACTIVE, "ACTIVE")}
+    ${filterComp(state, AppState.COMPLETED, "COMPLETED")}
+</div>`
 
 const appComp = state => yo`<div>
-  <button onclick=${ev => state.people.push(createPerson())}>Add Person</button>
-  <button onclick=${ev => console.log(state.people)}>Log state to console</button>
-  ${peopleList(state)}
+    ${addTodoComp(state.currentTodo, state.addTodo)}
+    ${todoListComp(state)}
+    <hr>
+    ${filterListComp(state)}
 </div>`;
 
 const ref = document.body.appendChild(appComp(appState));
