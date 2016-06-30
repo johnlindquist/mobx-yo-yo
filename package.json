@@ -1,0 +1,24 @@
+{
+  "name": "mobx-yo-yo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "systemjs.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnlindquist/mobx-yo-yo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnlindquist/mobx-yo-yo/issues"
+  },
+  "homepage": "https://github.com/johnlindquist/mobx-yo-yo#readme",
+  "dependencies": {
+    "mobx": "^2.3.3",
+    "yo-yo": "^1.2.2"
+  }
+}
