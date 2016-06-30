@@ -49,7 +49,7 @@ const todoComp = todo => yo`<div
 
 const todoListComp = state => yo`<div>
     ${state.todos
-    .filter(appState.currentFilter)
+    .filter(state.currentFilter)
     .map(todoComp)}
 </div>`
 
