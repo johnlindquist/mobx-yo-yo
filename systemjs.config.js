@@ -1,18 +1,18 @@
 (function(global) {
   const map = {
     'app': 'app',
-    'bel': 'https://npmcdn.com/bel',
-    'global/document': 'https://npmcdn.com/global/document',
-    'global/window': 'https://npmcdn.com/global/window',
-    'hyperx': 'https://npmcdn.com/hyperx',
-    'hyperscript-attribute-to-property': 'https://npmcdn.com/hyperscript-attribute-to-property',
-    'min-document': 'https://npmcdn.com/min-document',
-    'mobx': 'https://npmcdn.com/mobx',
-    'morphdom': 'https://npmcdn.com/morphdom',
-    'on-load': 'https://npmcdn.com/on-load',
-    'ts': 'https://npmcdn.com/plugin-typescript@4.0.10/lib/plugin.js',
-    'typescript': 'https://npmcdn.com/typescript@1.8.10/lib/typescript.js',
-    'yo-yo': 'https://npmcdn.com/yo-yo@1.2.2'
+    'bel': 'https://unpkg.com/bel',
+    'global/document': 'https://unpkg.com/global/document',
+    'global/window': 'https://unpkg.com/global/window',
+    'hyperx': 'https://unpkg.com/hyperx',
+    'hyperscript-attribute-to-property': 'https://unpkg.com/hyperscript-attribute-to-property',
+    'min-document': 'https://unpkg.com/min-document',
+    'mobx': 'https://unpkg.com/mobx',
+    'morphdom': 'https://unpkg.com/morphdom',
+    'on-load': 'https://unpkg.com/on-load',
+    'ts': 'https://unpkg.com/plugin-typescript@4.0.10/lib/plugin.js',
+    'typescript': 'https://unpkg.com/typescript@1.8.10/lib/typescript.js',
+    'yo-yo': 'https://unpkg.com/yo-yo@1.2.2'
  };
 
   const packages = {
